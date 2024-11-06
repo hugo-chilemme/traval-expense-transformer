@@ -69,7 +69,7 @@ export default function Page() {
     const newExpense = {
       date: date,
       uuid: new Date().getTime().toString(),
-      amount: parseFloat(parseFloat(amount.toString()).toFixed(2)),
+      amount: parseFloat(amount.toString()).toFixed(2),
       type: type,
       file: file,
       reason: reason,
@@ -326,13 +326,13 @@ export default function Page() {
               <tr key={index}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">#{index + 1}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expense.date}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expense.amount}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{expense.amount} €</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {expense.reason && <p className="text-gray-700 font-semibold mb-1">{expense.reason}</p>}
                   {labelList[expense.type]}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <Button variant="default"
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 space-x-4">
+                  <Button variant="ghost"
                     onClick={() => {
                       setId(index);
                       setFile(expense.file);
@@ -352,6 +352,12 @@ export default function Page() {
             ))}
           </tbody>
         </table>
+
+        <div className="flex flex-row space-x-4 justify-end p-6 items-center">
+          <h2>Total des frais</h2> 
+          <h1 className="text-xl font-bold">{expenses.reduce((acc, expense) => acc + parseFloat(expense.amount), 0).toFixed(2)} €</h1>
+        </div>
+
       </div>
       <p className="text-xs text-neutral-600"><strong>Vos données restent à l&quot;abris</strong> dans votre navigateur. Vous pouvez les exporter à tout moment. Elles ne sont pas partagées avec des tiers ou stockées sur un serveur.</p>
     </main>
